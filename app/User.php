@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App;
 
+use App\Services\UserRegistrationLogService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
@@ -29,11 +36,12 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return bool
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function markEmailAsVerified()
+    {
+        $service = app(UserRegistrationLogService::class);
+
+        return $service->save($this->id);
+    }
 }
