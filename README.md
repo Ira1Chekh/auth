@@ -14,6 +14,7 @@
 * Clone the repository with git clone
 * Run composer install
 * Run php artisan key:generate
+* Run npm install, npm run dev
 * Set connecton to db, mailtrap to .env
 * Create database
 * Run php artisan migrate 
